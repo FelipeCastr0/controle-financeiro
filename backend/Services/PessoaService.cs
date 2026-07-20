@@ -46,13 +46,20 @@ public class PessoaService
 
         foreach (var pessoa in pessoas)
         {
-            var totalReceitas = pessoa.Transacoes
-                .Where(t => t.Tipo == TipoTransacao.Receita)
-                .Sum(t => t.Valor);
+            foreach (var t in pessoa.Transacoes)
+            {
+                Console.WriteLine(
+                    $"Descrição: {t.Descricao} | Tipo: {t.Tipo} | Valor inteiro: {(int)t.Tipo}"
+                );
+            }
 
-            var totalDespesas = pessoa.Transacoes
-                .Where(t => t.Tipo == TipoTransacao.Despesa)
-                .Sum(t => t.Valor);
+        var totalReceitas = pessoa.Transacoes
+            .Where(t => t.Tipo == TipoTransacao.Receita)
+            .Sum(t => t.Valor);
+
+        var totalDespesas = pessoa.Transacoes
+            .Where(t => t.Tipo == TipoTransacao.Despesa)
+            .Sum(t => t.Valor);
 
             resultado.Pessoas.Add(new PessoaResumoDTO
             {

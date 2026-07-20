@@ -1,5 +1,7 @@
+using backend.DTOs;
 using backend.Models;
 using backend.Repositories;
+
 
 namespace backend.Services;
 
@@ -16,9 +18,19 @@ public class TransacaoService
         _pessoaRepository = pessoaRepository;
     }
 
-    public async Task<List<Transacao>> ListarAsync()
+    public async Task<List<TransacaoDTO>> ListarAsync()
     {
-        return await _transacaoRepository.ListarAsync();
+        var transacoes = await _transacaoRepository.ListarAsync();
+
+        return transacoes.Select(t => new TransacaoDTO
+        {
+            Id = t.Id,
+            Descricao = t.Descricao,
+            Valor = t.Valor,
+            Tipo = (int)t.Tipo,
+            PessoaId = t.PessoaId,
+            Pessoa = t.Pessoa?.Nome ?? ""
+        }).ToList();
     }
 
     public async Task<Transacao> CriarAsync(Transacao transacao)

@@ -1,3 +1,4 @@
+using backend.DTOs;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ public class TransacaoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Transacao>>> Listar()
+    public async Task<ActionResult<List<TransacaoDTO>>> Listar()
     {
         return Ok(await _service.ListarAsync());
     }
